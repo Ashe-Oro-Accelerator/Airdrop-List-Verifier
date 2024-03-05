@@ -11,9 +11,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Textarea } from '@/components/ui/textarea';
 
 type HoldersFormProps = {
-  setTokenId: (tokenId: string) => void;
-  setAccountIds: (setAccountIds: string) => void;
-  setShouldFetch: (shouldFetch: boolean) => void;
+  setTokenId: (_tokenId: string) => void;
+  setAccountIds: (_setAccountIds: string[]) => void;
+  setShouldFetch: (_shouldFetch: boolean) => void;
   isFetching: boolean;
 };
 
@@ -44,7 +44,7 @@ export const HoldersForm = ({ setTokenId, setAccountIds, setShouldFetch, isFetch
                 <FormItem>
                   <FormLabel>{dictionary.tokenId}</FormLabel>
                   <FormControl>
-                    <Input placeholder={dictionary.exampleTokenId} {...field} />
+                    <Input data-testid="tokenId" placeholder={dictionary.exampleTokenId} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -60,7 +60,7 @@ export const HoldersForm = ({ setTokenId, setAccountIds, setShouldFetch, isFetch
                 <FormItem>
                   <FormLabel>{dictionary.accountIds}</FormLabel>
                   <FormControl>
-                    <Textarea placeholder={dictionary.exampleAccountIds} {...field} />
+                    <Textarea data-testid="accountIds" placeholder={dictionary.exampleAccountIds} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -70,7 +70,7 @@ export const HoldersForm = ({ setTokenId, setAccountIds, setShouldFetch, isFetch
         </div>
         <div className="flex items-center justify-center">
           <div className="w-full sm:w-[68%]">
-            <Button className="w-full" disabled={isFetching} type="submit">
+            <Button data-testid="submit" className="w-full" disabled={isFetching} type="submit">
               {isFetching ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <>{dictionary.buildList}</>}
             </Button>
           </div>

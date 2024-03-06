@@ -54,8 +54,8 @@ const App = () => {
   };
 
   useEffect(() => {
-    if (isSuccess) toast.success(dictionary.successfullyFetchedData);
-  }, [isSuccess]);
+    if (!isFetching && isSuccess) toast.success(dictionary.successfullyFetchedData);
+  }, [isSuccess, isFetching]);
 
   useEffect(() => {
     if (error) {

@@ -26,7 +26,7 @@ describe('getUsedAutomaticAssociationSlots', () => {
   it('should return positive automatic association number', async () => {
     setupFetchMocks([getPositiveAutomaticAssociationNumberNoNextResponse]);
 
-    const result = await getUsedAutomaticAssociationSlots(mockAccountId, 'testnet');
+    const result = await getUsedAutomaticAssociationSlots(mockAccountId, 'testnet', 5);
 
     assertFetchCalls(1);
     expect(result).toEqual(0); // 0 tokens have automatic_association set to true
@@ -35,7 +35,7 @@ describe('getUsedAutomaticAssociationSlots', () => {
   it('should return automatic association number with next page', async () => {
     setupFetchMocks([getPositiveAutomaticAssociationNumberHasNextResponse, getPositiveAutomaticAssociationNumberNoNextResponse]);
 
-    const result = await getUsedAutomaticAssociationSlots(mockAccountId, 'testnet');
+    const result = await getUsedAutomaticAssociationSlots(mockAccountId, 'testnet', 5);
 
     assertFetchCalls(2);
     expect(result).toEqual(1); // 1 token have automatic_association set to true
@@ -51,7 +51,7 @@ describe('getUsedAutomaticAssociationSlots', () => {
       getPositiveAutomaticAssociationNumberNoNextResponse,
     ]);
 
-    const result = await getUsedAutomaticAssociationSlots(mockAccountId, 'testnet');
+    const result = await getUsedAutomaticAssociationSlots(mockAccountId, 'testnet', 10);
 
     assertFetchCalls(6);
     expect(result).toEqual(5); // 1 token have automatic_association set to true

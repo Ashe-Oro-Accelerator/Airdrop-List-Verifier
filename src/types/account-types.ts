@@ -53,7 +53,7 @@ export type AccountResponseType = {
   evm_address: string;
   expiry_timestamp: string;
   key: Key;
-  max_automatic_token_associations: number;
+  max_automatic_token_associations: number | null;
   memo: string;
   pending_reward: number;
   receiver_sig_required: boolean;

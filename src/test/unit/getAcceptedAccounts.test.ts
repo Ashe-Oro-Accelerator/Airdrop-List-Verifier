@@ -75,4 +75,46 @@ describe('getAcceptedAccounts', () => {
 
     expect(result).toEqual(['account1']);
   });
+
+  it('should return empty array when maxAutomaticTokenAssociations is null', async () => {
+    setupFetchMocks([
+      getAccountBalanceNoAssociatedResponse,
+      {
+        ...getMaxAutomaticTokenAssociationsResponse,
+        max_automatic_token_associations: null,
+      },
+    ]);
+
+    const result = await getAcceptedAccounts(mockAccountIds, mockTokenId);
+
+    expect(result).toEqual([]);
+  });
+
+  it('should stop recursion when usedAutomaticAssociationSlots is bigger than maxAutomaticTokenAssociations', async () => {
+    setupFetchMocks([
+      getAccountBalanceNoAssociatedResponse,
+      getMaxAutomaticTokenAssociationsResponse, // maxAutomaticTokenAssociations = 5
+      getPositiveAutomaticAssociationNumberHasNextResponse, // usedAutomaticAssociationSlots = 1
+      getPositiveAutomaticAssociationNumberHasNextResponse, // usedAutomaticAssociationSlots = 2
+      getPositiveAutomaticAssociationNumberHasNextResponse, // usedAutomaticAssociationSlots = 3
+      getPositiveAutomaticAssociationNumberHasNextResponse, // usedAutomaticAssociationSlots = 4
+      getPositiveAutomaticAssociationNumberHasNextResponse, // usedAutomaticAssociationSlots = 5
+      getPositiveAutomaticAssociationNumberHasNextResponse, // no useless call
+      getPositiveAutomaticAssociationNumberHasNextResponse, // no useless call
+      getPositiveAutomaticAssociationNumberNoNextResponse, // no useless call
+    ]);
+
+    const result = await getAcceptedAccounts(mockAccountIds, mockTokenId);
+
+    assertFetchCalls(7);
+    expect(fetchMock.mock.calls[0][0]).toEqual(`${baseUrl}/tokens/${mockTokenId}/balances?account.id=account1`);
+    expect(fetchMock.mock.calls[1][0]).toEqual(`${baseUrl}/accounts/account1`);
+    expect(fetchMock.mock.calls[2][0]).toEqual(`${baseUrl}/accounts/account1/tokens?limit=100`);
+    expect(fetchMock.mock.calls[3][0]).toEqual(`${baseUrl}/accounts/0.0.3158096/tokens?limit=100&token.id=gt:0.0.3283757`);
+    expect(fetchMock.mock.calls[4][0]).toEqual(`${baseUrl}/accounts/0.0.3158096/tokens?limit=100&token.id=gt:0.0.3283757`);
+    expect(fetchMock.mock.calls[5][0]).toEqual(`${baseUrl}/accounts/0.0.3158096/tokens?limit=100&token.id=gt:0.0.3283757`);
+    expect(fetchMock.mock.calls[6][0]).toEqual(`${baseUrl}/accounts/0.0.3158096/tokens?limit=100&token.id=gt:0.0.3283757`);
+
+    expect(result).toEqual([]);
+  });
 });

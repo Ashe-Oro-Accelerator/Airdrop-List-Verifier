@@ -14,7 +14,12 @@ export const getAcceptedAccounts = async (accountIds: string[], tokenId: string,
     }
 
     const maxAutomaticTokenAssociations = await getMaxAutomaticTokenAssociations(accountId, network);
-    const usedAutomaticAssociationSlots = await getUsedAutomaticAssociationSlots(accountId, network);
+
+    if (!maxAutomaticTokenAssociations) {
+      continue;
+    }
+
+    const usedAutomaticAssociationSlots = await getUsedAutomaticAssociationSlots(accountId, network, maxAutomaticTokenAssociations);
 
     if (maxAutomaticTokenAssociations > usedAutomaticAssociationSlots) {
       acceptedAccounts.push(accountId);

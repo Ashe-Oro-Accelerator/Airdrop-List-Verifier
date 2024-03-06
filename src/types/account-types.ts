@@ -18,7 +18,7 @@ type Transaction = {
   memo_base64: string;
   name: string;
   nft_transfers: any[];
-  node: string;
+  node: null | string;
   nonce: number;
   parent_consensus_timestamp: null | string;
   result: string;
@@ -28,7 +28,7 @@ type Transaction = {
   transaction_hash: string;
   transaction_id: string;
   transfers: any[];
-  valid_duration_seconds: string;
+  valid_duration_seconds: null | string;
   valid_start_timestamp: string;
 };
 

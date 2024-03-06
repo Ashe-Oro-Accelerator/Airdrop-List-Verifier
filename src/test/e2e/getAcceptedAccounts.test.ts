@@ -6,7 +6,7 @@ import { tokenAssociateToAccount } from '@/utils/tokenAssociateToAccount';
 import { getAcceptedAccounts } from '@/utils/getAcceptedAccounts';
 
 describe('getAcceptedAccounts', () => {
-  let client;
+  let client: Client;
   let tokenId: string;
   let accountIdWithTokenAssociations: string;
   let accountIdWithBalance: string;
@@ -41,6 +41,10 @@ describe('getAcceptedAccounts', () => {
 
     await new Promise((resolve) => setTimeout(resolve, MIRROR_NODE_DELAY));
   }, LONG_E2E_TIMEOUT);
+
+  afterAll(async () => {
+    client.close();
+  });
 
   it(
     'should return accepted account',

@@ -338,7 +338,7 @@ export const getMaxAutomaticTokenAssociationsResponse = {
     _type: 'ED25519',
     key: '44f99bdb9b9f00d8992d948b60ef24a453375828f1b0df0558cd033465f053ec',
   },
-  max_automatic_token_associations: 0,
+  max_automatic_token_associations: 5,
   memo: '',
   pending_reward: 0,
   receiver_sig_required: false,

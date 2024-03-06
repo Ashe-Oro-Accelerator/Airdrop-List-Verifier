@@ -1,10 +1,10 @@
-import { getAccountBalance } from '@/utils/getAccountBalance';
+import { isAccountAssociatedToToken } from '@/utils/isAccountAssociatedToToken';
 import fetchMock from 'jest-fetch-mock';
-import { getAccountBalanceResponse } from '@/test/__mocks__/get-account-balance-response';
+import { getAccountBalanceResponse } from '@/test/__mocks__/getAccountBalance-response';
 
 fetchMock.enableMocks();
 
-describe('getAccountBalance', () => {
+describe('isAccountAssociatedToToken', () => {
   beforeEach(() => {
     fetchMock.resetMocks();
   });
@@ -15,7 +15,7 @@ describe('getAccountBalance', () => {
 
     fetchMock.mockResponseOnce(JSON.stringify(getAccountBalanceResponse));
 
-    const result = await getAccountBalance(mockAccountId, mockTokenId, 'testnet');
+    const result = await isAccountAssociatedToToken(mockAccountId, mockTokenId, 'testnet');
 
     expect(fetchMock.mock.calls.length).toEqual(1);
     expect(fetchMock.mock.calls[0][0]).toContain(`${mockAccountId}`);

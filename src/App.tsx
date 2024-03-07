@@ -27,11 +27,13 @@ import { toast } from 'sonner';
 import dictionary from '@/dictionary/en.json';
 import { HoldersForm } from '@/components/HoldersForm';
 import { getAcceptedAccounts } from '@/utils/getAcceptedAccounts';
+import { defaultNetwork } from '@/utils/const';
 
 const App = () => {
   const [tokenId, setTokenId] = useState<string>('');
   const [accountIds, setAccountIds] = useState<string[]>([]);
   const [shouldFetch, setShouldFetch] = useState(false);
+  const [fetchedAccountsBalance, setFetchedAccountsBalance] = useState<number>(0);
 
   const {
     data = [],
@@ -44,7 +46,7 @@ const App = () => {
     retry: 0,
     throwOnError: false,
     queryKey: ['balances'],
-    queryFn: () => getAcceptedAccounts(accountIds, tokenId),
+    queryFn: () => getAcceptedAccounts(accountIds, tokenId, defaultNetwork, setFetchedAccountsBalance),
   });
 
   const copyToClipboard = async (textToCopy: string) => {
@@ -92,7 +94,13 @@ const App = () => {
       <p className="text-center leading-7 [&:not(:first-child)]:mt-6">{dictionary.description}</p>
 
       <div className="mb-20 mt-5">
-        <HoldersForm setTokenId={setTokenId} setAccountIds={setAccountIds} setShouldFetch={setShouldFetch} isFetching={isFetching} />
+        <HoldersForm
+          setTokenId={setTokenId}
+          setAccountIds={setAccountIds}
+          setShouldFetch={setShouldFetch}
+          isFetching={isFetching}
+          fetchedAccountsBalance={fetchedAccountsBalance}
+        />
       </div>
 
       {isFetched || isFetching ? (

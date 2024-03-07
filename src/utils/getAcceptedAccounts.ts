@@ -20,11 +20,18 @@
 import { isAccountAssociatedToToken } from '@/utils/isAccountAssociatedToToken';
 import { getMaxAutomaticTokenAssociations } from '@/utils/getMaxAutomaticTokenAssociations';
 import { getUsedAutomaticAssociationSlots } from '@/utils/getUsedAutomaticAssociationSlots';
-import { defaultNetwork } from '@/utils/const';
 
-export const getAcceptedAccounts = async (accountIds: string[], tokenId: string, network: string = defaultNetwork) => {
+export const getAcceptedAccounts = async (
+  accountIds: string[],
+  tokenId: string,
+  network: string,
+  setFetchedAccountsBalance?: (_value: number) => void
+) => {
   const acceptedAccounts = [];
-  for (const accountId of accountIds) {
+  for (const [index, accountId] of accountIds.entries()) {
+    if (setFetchedAccountsBalance) {
+      setFetchedAccountsBalance(index + 1);
+    }
     const isAssociated = await isAccountAssociatedToToken(accountId, tokenId, network);
 
     if (isAssociated) {

@@ -54,7 +54,7 @@ describe('getAcceptedAccounts', () => {
       getPositiveAutomaticAssociationNumberNoNextResponse,
     ]);
 
-    const result = await getAcceptedAccounts(mockAccountIds, mockTokenId);
+    const result = await getAcceptedAccounts(mockAccountIds, mockTokenId, 'mainnet');
 
     assertFetchCalls(1);
     expect(fetchMock.mock.calls[0][0]).toEqual(`${baseUrl}/tokens/${mockTokenId}/balances?account.id=account1`);
@@ -69,7 +69,7 @@ describe('getAcceptedAccounts', () => {
       getPositiveAutomaticAssociationNumberNoNextResponse,
     ]);
 
-    const result = await getAcceptedAccounts(mockAccountIds, mockTokenId);
+    const result = await getAcceptedAccounts(mockAccountIds, mockTokenId, 'mainnet');
 
     assertFetchCalls(1);
     expect(fetchMock.mock.calls[0][0]).toEqual(`${baseUrl}/tokens/${mockTokenId}/balances?account.id=account1`);
@@ -84,7 +84,7 @@ describe('getAcceptedAccounts', () => {
       getPositiveAutomaticAssociationNumberNoNextResponse,
     ]);
 
-    const result = await getAcceptedAccounts(mockAccountIds, mockTokenId);
+    const result = await getAcceptedAccounts(mockAccountIds, mockTokenId, 'mainnet');
 
     assertFetchCalls(4);
     expect(fetchMock.mock.calls[0][0]).toEqual(`${baseUrl}/tokens/${mockTokenId}/balances?account.id=account1`);
@@ -104,7 +104,7 @@ describe('getAcceptedAccounts', () => {
       },
     ]);
 
-    const result = await getAcceptedAccounts(mockAccountIds, mockTokenId);
+    const result = await getAcceptedAccounts(mockAccountIds, mockTokenId, 'mainnet');
 
     expect(result).toEqual([]);
   });
@@ -123,7 +123,7 @@ describe('getAcceptedAccounts', () => {
       getPositiveAutomaticAssociationNumberNoNextResponse, // no useless call
     ]);
 
-    const result = await getAcceptedAccounts(mockAccountIds, mockTokenId);
+    const result = await getAcceptedAccounts(mockAccountIds, mockTokenId, 'mainnet');
 
     assertFetchCalls(7);
     expect(fetchMock.mock.calls[0][0]).toEqual(`${baseUrl}/tokens/${mockTokenId}/balances?account.id=account1`);

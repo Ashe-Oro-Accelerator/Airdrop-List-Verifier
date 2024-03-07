@@ -17,7 +17,7 @@
  * limitations under the License.
  *
  */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import dictionary from '@/dictionary/en.json';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -28,15 +28,19 @@ import { formSchema } from '@/utils/formSchema';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Textarea } from '@/components/ui/textarea';
+import { Progress } from '@/components/ui/progress';
 
 type HoldersFormProps = {
   setTokenId: (_tokenId: string) => void;
   setAccountIds: (_setAccountIds: string[]) => void;
   setShouldFetch: (_shouldFetch: boolean) => void;
   isFetching: boolean;
+  fetchedAccountsBalance: number;
 };
 
-export const HoldersForm = ({ setTokenId, setAccountIds, setShouldFetch, isFetching }: HoldersFormProps) => {
+export const HoldersForm = ({ setTokenId, setAccountIds, setShouldFetch, isFetching, fetchedAccountsBalance }: HoldersFormProps) => {
+  const [accountIdsLength, setAccountIdsLength] = useState(0);
+  const [progress, setProgress] = useState(0);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -48,8 +52,16 @@ export const HoldersForm = ({ setTokenId, setAccountIds, setShouldFetch, isFetch
   const onSubmit = ({ tokenId, accountIds }: z.infer<typeof formSchema>) => {
     setTokenId(tokenId);
     setAccountIds(JSON.parse(accountIds));
+    setAccountIdsLength(JSON.parse(accountIds).length);
     setShouldFetch(true);
   };
+
+  const calculatePercentage = (current: number, total: number) => (current / total) * 100;
+
+  useEffect(() => {
+    setProgress(calculatePercentage(fetchedAccountsBalance, accountIdsLength));
+    if (!isFetching && fetchedAccountsBalance === accountIdsLength) setProgress(0);
+  }, [accountIdsLength, fetchedAccountsBalance, isFetching]);
 
   return (
     <Form {...form}>
@@ -89,9 +101,13 @@ export const HoldersForm = ({ setTokenId, setAccountIds, setShouldFetch, isFetch
         </div>
         <div className="flex items-center justify-center">
           <div className="w-full sm:w-[68%]">
-            <Button data-testid="submit" className="w-full" disabled={isFetching} type="submit">
-              {isFetching ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <>{dictionary.buildList}</>}
-            </Button>
+            {isFetching ? (
+              <Progress className="mt-6" value={progress} />
+            ) : (
+              <Button data-testid="submit" className="w-full" disabled={isFetching} type="submit">
+                {isFetching ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <>{dictionary.buildList}</>}
+              </Button>
+            )}
           </div>
         </div>
       </form>

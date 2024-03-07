@@ -28,6 +28,7 @@ import { formSchema } from '@/utils/formSchema';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Textarea } from '@/components/ui/textarea';
+import { parseCSV } from '@/utils/parseCSV';
 
 type HoldersFormProps = {
   setTokenId: (_tokenId: string) => void;
@@ -47,7 +48,7 @@ export const HoldersForm = ({ setTokenId, setAccountIds, setShouldFetch, isFetch
 
   const onSubmit = ({ tokenId, accountIds }: z.infer<typeof formSchema>) => {
     setTokenId(tokenId);
-    setAccountIds(JSON.parse(accountIds));
+    setAccountIds(parseCSV(accountIds));
     setShouldFetch(true);
   };
 

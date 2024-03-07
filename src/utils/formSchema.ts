@@ -26,12 +26,8 @@ export const formSchema = z.object({
   }),
   accountIds: z.string().refine(
     (value) => {
-      try {
-        const parsedValue = JSON.parse(value);
-        return Array.isArray(parsedValue) && parsedValue.every((item) => typeof item === 'string');
-      } catch {
-        return false;
-      }
+      const splitValues = value.split(/,|\s|\n/);
+      return splitValues.every((item) => /^0\.0\.\d*$/.test(item));
     },
     {
       message: dictionary.accountIdsFormatError,

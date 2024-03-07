@@ -108,10 +108,10 @@ const App = () => {
               <Label htmlFor="holders">
                 {dictionary.found} {data.length || 0} {dictionary.accounts}
               </Label>
-              <Textarea data-testid="response" readOnly className="min-h-[200px]" id="holders" value={JSON.stringify(data)} />
+              <Textarea data-testid="response" readOnly className="min-h-[200px]" id="holders" value={data.join(', ')} />
               <Button
                 onClick={async () => {
-                  await copyToClipboard(JSON.stringify(data));
+                  await copyToClipboard(data.join(', '));
                 }}
               >
                 {dictionary.copyToClipboard}

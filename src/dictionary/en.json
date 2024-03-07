@@ -7,12 +7,12 @@
   "tokenId": "TokenId",
   "exampleTokenId": "0.0.1234",
   "accountIds": "Account Ids list",
-  "exampleAccountIds": "[\"0.0.1234\",\"0.0.1235\",\"0.0.1236\"]",
+  "exampleAccountIds": "0.0.123, 0.0.124, 0.0.125, 0.0.126",
   "buildList": "Build list",
   "found": "Found",
   "accounts": "associated accounts",
   "successfullyFetchedData": "Successfully fetched data",
   "tokenIdFormatError": "TokenId must be in the format 0.0.x",
   "minAmountFormatError": "MinAmount must be a number greater than or equal to 0",
-  "accountIdsFormatError": "AccountIds must be a string representation of an array of strings. Example: [\"one\",\"two\",\"three\"]"
+  "accountIdsFormatError": "AccountIds must be a string representation of an csv. Example: 0.0.123, 0.0.124, 0.0.125, 0.0.126"
 }

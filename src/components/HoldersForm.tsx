@@ -105,7 +105,7 @@ export const HoldersForm = ({ setTokenId, setAccountIds, setShouldFetch, isFetch
               <Progress className="mt-6" value={progress} />
             ) : (
               <Button data-testid="submit" className="w-full" disabled={isFetching} type="submit">
-                {isFetching ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <>{dictionary.buildList}</>}
+                {dictionary.buildList}
               </Button>
             )}
           </div>

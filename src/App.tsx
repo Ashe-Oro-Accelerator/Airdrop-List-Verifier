@@ -114,7 +114,7 @@ const App = () => {
           <>
             <div className="grid w-full gap-5">
               <Label htmlFor="holders">
-                {dictionary.found} {data.length || 0} {dictionary.accounts}
+                {data.length} {dictionary.outOf} {accountIds.length} {dictionary.textAreaLabel} {tokenId}
               </Label>
               <Textarea data-testid="response" readOnly className="min-h-[200px]" id="holders" value={JSON.stringify(data)} />
               <Button

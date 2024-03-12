@@ -21,13 +21,13 @@ import React, { useEffect, useState } from 'react';
 import dictionary from '@/dictionary/en.json';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Loader2 } from 'lucide-react';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { z } from 'zod';
 import { formSchema } from '@/utils/formSchema';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Textarea } from '@/components/ui/textarea';
+import { parseCSV } from '@/utils/parseCSV';
 import { Progress } from '@/components/ui/progress';
 
 type HoldersFormProps = {
@@ -51,8 +51,8 @@ export const HoldersForm = ({ setTokenId, setAccountIds, setShouldFetch, isFetch
 
   const onSubmit = ({ tokenId, accountIds }: z.infer<typeof formSchema>) => {
     setTokenId(tokenId);
-    setAccountIds(JSON.parse(accountIds));
-    setAccountIdsLength(JSON.parse(accountIds).length);
+    setAccountIdsLength(parseCSV(accountIds).length);
+    setAccountIds(parseCSV(accountIds));
     setShouldFetch(true);
   };
 

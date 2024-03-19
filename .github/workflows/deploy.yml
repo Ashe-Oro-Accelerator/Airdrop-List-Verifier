@@ -3,7 +3,7 @@ name: Deploy
 on:
   push:
     branches:
-      - deploy-test
+      - main
 permissions:
   contents: write
 jobs:
@@ -36,7 +36,7 @@ jobs:
     name: Deploy
     needs: build
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/deploy-test'
+    if: github.ref == 'refs/heads/main'
 
     steps:
       - name: Download artifact

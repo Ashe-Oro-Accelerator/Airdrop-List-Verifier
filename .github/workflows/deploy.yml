@@ -4,7 +4,8 @@ on:
   push:
     branches:
       - deploy-test
-
+permissions:
+  contents: write
 jobs:
   build:
     name: Build

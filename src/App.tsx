@@ -32,7 +32,7 @@ import { defaultNetwork } from '@/utils/const';
 const App = () => {
   const [tokenId, setTokenId] = useState<string>('');
   const [accountIds, setAccountIds] = useState<string[]>([]);
-  const [shouldFetch, setShouldFetch] = useState(false);
+  const [shouldFetch, setShouldFetch] = useState<boolean>(false);
   const [fetchedAccountsBalance, setFetchedAccountsBalance] = useState<number>(0);
 
   const {

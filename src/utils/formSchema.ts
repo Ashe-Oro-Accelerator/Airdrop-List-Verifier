@@ -26,7 +26,10 @@ export const formSchema = z.object({
   }),
   accountIds: z.string().refine(
     (value) => {
-      const splitValues = value.split(/, |\s|\n/);
+      const splitValues = value
+        .split(/\s*,\s*|\n/)
+        .map((item) => item.trim())
+        .filter((item) => item);
       return splitValues.every((item) => /^0\.0\.\d*$/.test(item));
     },
     {

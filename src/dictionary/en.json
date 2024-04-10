@@ -2,8 +2,8 @@
   "copiedToClipboard": "Copied to clipboard",
   "copyToClipboard": "Copy to clipboard",
   "httpError": "HTTP error! Status:",
-  "title": "Hedera airdrop helper",
-  "description": "Just pass a TokenId and a list of account ids that you want to airdrop to. The app will return you a list of addresses that are either associated with the token or have available auto association slots.",
+  "title": "Hedera Airdrop List Verifier",
+  "description": "Provide a list of Account IDs and a Token ID and this app will return only the accounts which can successfully receive the token as an airdrop.",
   "tokenId": "TokenId",
   "exampleTokenId": "0.0.1234",
   "accountIds": "Account Ids list",
@@ -15,5 +15,5 @@
   "successfullyFetchedData": "Successfully fetched data",
   "tokenIdFormatError": "TokenId must be in the format 0.0.x",
   "minAmountFormatError": "MinAmount must be a number greater than or equal to 0",
-  "accountIdsFormatError": "AccountIds must be a string representation of an csv. Example: 0.0.123, 0.0.124, 0.0.125, 0.0.126"
+  "accountIdsFormatError": "Account ids should be comma separated."
 }

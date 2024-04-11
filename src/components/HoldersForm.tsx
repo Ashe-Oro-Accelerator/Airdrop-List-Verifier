@@ -82,7 +82,6 @@ export const HoldersForm = ({ setTokenId, setAccountIds, setShouldFetch, isFetch
               )}
             />
           </div>
-
           <div className="w-full sm:w-1/3">
             <FormField
               control={form.control}

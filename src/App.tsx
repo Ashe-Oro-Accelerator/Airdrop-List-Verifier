@@ -92,7 +92,6 @@ const App = () => {
     <div className="container mx-auto">
       <h1 className="mt-20 scroll-m-20 text-center text-4xl font-extrabold tracking-tight lg:text-5xl">{dictionary.title}</h1>
       <p className="text-center leading-7 [&:not(:first-child)]:mt-6">{dictionary.description}</p>
-
       <div className="mb-20 mt-5">
         <HoldersForm
           setTokenId={setTokenId}

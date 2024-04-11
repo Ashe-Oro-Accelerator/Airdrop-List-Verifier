@@ -17,6 +17,14 @@
  * limitations under the License.
  *
  */
-export const defaultNetwork = 'mainnet';
+import { getMirrorNodeUrlForNetwork } from '@/utils/getMirrorNodeURLForNetwork';
 
-export const nodeUrl = 'https://mainnet-public.mirrornode.hedera.com';
+export const fetchTokenName = async (tokenId: string, network: string) => {
+  const response = await fetch(`${getMirrorNodeUrlForNetwork(network)}/api/v1/tokens/${tokenId}`, {
+    method: 'GET',
+    headers: {},
+  });
+
+  const { name } = await response.json();
+  return name;
+};

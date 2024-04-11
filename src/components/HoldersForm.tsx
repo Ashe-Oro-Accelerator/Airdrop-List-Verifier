@@ -29,6 +29,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Textarea } from '@/components/ui/textarea';
 import { parseCSV } from '@/utils/parseCSV';
 import { Progress } from '@/components/ui/progress';
+import { fetchTokenName } from '@/utils/fetchTokenName';
+import { isValidTokenId } from '@/utils/isValidTokenId';
 
 type HoldersFormProps = {
   setTokenId: (_tokenId: string) => void;
@@ -41,6 +43,7 @@ type HoldersFormProps = {
 export const HoldersForm = ({ setTokenId, setAccountIds, setShouldFetch, isFetching, fetchedAccountsBalance }: HoldersFormProps) => {
   const [accountIdsLength, setAccountIdsLength] = useState(0);
   const [progress, setProgress] = useState(0);
+  const [tokenName, setTokenName] = useState<string>('');
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -54,6 +57,12 @@ export const HoldersForm = ({ setTokenId, setAccountIds, setShouldFetch, isFetch
     setAccountIdsLength(parseCSV(accountIds).length);
     setAccountIds(parseCSV(accountIds));
     setShouldFetch(true);
+  };
+
+  const handleTokenBlur = async (tokenId: string) => {
+    if (!isValidTokenId(tokenId)) return;
+    const tokenName = await fetchTokenName(tokenId, 'mainnet');
+    setTokenName(tokenName);
   };
 
   const calculatePercentage = (current: number, total: number) => (current / total) * 100;
@@ -75,7 +84,18 @@ export const HoldersForm = ({ setTokenId, setAccountIds, setShouldFetch, isFetch
                 <FormItem>
                   <FormLabel>{dictionary.tokenId}</FormLabel>
                   <FormControl>
-                    <Input data-testid="tokenId" placeholder={dictionary.exampleTokenId} {...field} />
+                    <>
+                      <Input
+                        data-testid="tokenId"
+                        placeholder={dictionary.exampleTokenId}
+                        {...field}
+                        onBlur={(event) => {
+                          field.onBlur();
+                          void handleTokenBlur(event.target.value);
+                        }}
+                      />
+                      {tokenName && <p className="text-sm text-muted-foreground">{tokenName}</p>}
+                    </>
                   </FormControl>
                   <FormMessage />
                 </FormItem>

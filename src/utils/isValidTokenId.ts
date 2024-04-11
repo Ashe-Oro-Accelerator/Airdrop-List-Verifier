@@ -1,6 +1,6 @@
 /*-
  *
- * Hedera Airdrop List Builder
+ * Hedera Token Holders List
  *
  * Copyright (C) 2024 Hedera Hashgraph, LLC
  *
@@ -17,6 +17,7 @@
  * limitations under the License.
  *
  */
-export const defaultNetwork = 'mainnet';
-
-export const nodeUrl = 'https://mainnet-public.mirrornode.hedera.com';
+export const isValidTokenId = (tokenId: string): boolean => {
+  const regex = /^\d\.\d\.\d*$/;
+  return regex.test(tokenId);
+};

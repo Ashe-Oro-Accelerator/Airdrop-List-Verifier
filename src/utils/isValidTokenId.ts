@@ -1,6 +1,6 @@
 /*-
  *
- * Hedera Token Holders List
+ * Hedera Airdrop List Builder
  *
  * Copyright (C) 2024 Hedera Hashgraph, LLC
  *

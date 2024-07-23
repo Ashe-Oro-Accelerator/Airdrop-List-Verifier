@@ -1,6 +1,6 @@
-# Airdrop List Verifier
+# Airdrop Verifier
 
-The `Airdrop List Verifier` is a utility that simplifies the process of organizing airdrops for Hedera tokens. Users can input a Token ID and a list of account IDs to which they wish to airdrop tokens. The application generates a list of addresses either associated with the token or having available auto-association slots, ensuring efficient and targeted airdrops.
+The `Airdrop Verifier` is a utility that simplifies the process of organizing airdrops for Hedera tokens. Users can input a Token ID and a list of account IDs to which they wish to airdrop tokens. The application generates a list of addresses either associated with the token or having available auto-association slots, ensuring efficient and targeted airdrops.
 
 ## Usage
 
